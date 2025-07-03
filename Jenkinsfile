@@ -1,9 +1,14 @@
 pipeline {
-    agent any
+    agent { docker { image 'maven:3.3-jdk-8' }
     stages {
-        stage('Build') { 
+        stage('Stage 1') {
             steps {
-                sh 'mvn -B -DskipTests clean package' 
+                echo 'mvn --version' 
+            }
+        },
+        stage('Stage 2') {
+            steps {
+                echo 'mvn -B -DskipTests clean package' 
             }
         }
     }
