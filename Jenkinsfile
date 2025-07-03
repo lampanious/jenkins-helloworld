@@ -5,7 +5,7 @@ pipeline {
             steps {
                 echo 'mvn --version' 
             }
-        },
+        }
         stage('Stage 2') {
             steps {
                 echo 'mvn -B -DskipTests clean package' 
