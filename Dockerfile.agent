@@ -1,0 +1,23 @@
+# Standard image from DockerHub of jenkins repository
+FROM jenkins/ssh-agent:alpine-jdk21
+
+USER root
+
+RUN apk add --update docker openrc \
+    && rc-update add docker boot \
+    && ssh-keygen -A \
+    && chown -Rf jenkins:jenkins /home/jenkins/.ssh \
+    && chown -Rf jenkins:jenkins /usr/local/bin/setup-sshd \
+    && chmod 0700 -R /usr/local/bin/setup-sshd \
+    && chown -Rf jenkins:jenkins /usr/sbin/sshd \
+    && chmod 0700 -R /usr/sbin/sshd \
+    && touch /etc/environment \
+    && chown -Rf jenkins:jenkins /etc/environment \
+    && chmod 0700 -R /etc/environment \
+    && chown -Rf jenkins:jenkins /etc/ssh/ssh_host_* \
+    && touch /var/run/docker.sock \
+    && chown -Rf jenkins:jenkins /var/run/docker.sock \
+    && touch /run/sshd.pid \
+    && chown -Rf jenkins:jenkins /run/sshd.pid
+
+USER jenkins
